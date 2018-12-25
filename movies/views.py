@@ -3,9 +3,6 @@ from django.shortcuts import render
 import tmdbsimple as tmdb
 import os
 
-# config = ConfigParser()
-# config.read('movies/config.cfg')
-# tmdb.API_KEY = config['tmdb']['API_KEY']
 tmdb.API_KEY = str(os.environ['API_KEY'])
 def home(request):
     return render(request, "base.html")
