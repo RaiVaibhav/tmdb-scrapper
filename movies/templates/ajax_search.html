@@ -1,0 +1,13 @@
+{% if has_result %}
+    {% for movie in search_result %}
+        <div class="movies__item">
+            <!-- <i class="movies__item-star fa fa-star hide"></i>
+            <p class="movies__item-rating hide">{{ movie.vote_average }}/10</p> -->
+            <a href="{% url 'details' %}{{ movie.id }}">
+            <img class="movies__item-image" src='https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ movie.poster_path }}' onerror="this.src='https://dummyimage.com/600x900/ababab/ffffff.png&amp;text=+Poster'"/>
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+<p class="movies__item-title">No results found.</p>
+{% endif %}

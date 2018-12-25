@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="{% static 'movies/app.css' %}"/>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <section class="result" >
+                <div>
+                    <div class="container">
+                        <div class="details" background="https://image.tmdb.org/t/p/original{{ info.backdrop_path }}">
+                            <div class="sidebar">
+                                <img class="details__image" src='https://image.tmdb.org/t/p/w600_and_h900_bestv2{{ info.poster_path }}' onerror="this.src='https://dummyimage.com/600x900/ababab/ffffff.png&amp;text=+Poster'"/>
+                            </div>
+            
+            
+                            <div class="content" style="margin-left: 3rem;">
+                                <div class="details__title">
+                                    <p style="display: inline;">{{ info.title }}</p>
+                                    <p style="display: inline;">({{ year }})</p>
+                                </div>
+                                <div class="details__title">
+                                    <i class="fa fa-star" style="color: rgb(109, 6, 6)"></i>
+                                    <p style="display: inline; font-size: 2rem; color: rgb(163, 16, 6); font-weight: 900">{{ info.vote_average }}/10</p>
+                                </div>
+                                <div class="details__content-header" style="font-size: 1.5rem; text-transform: uppercase; ">
+                                    <p>{{ info.tagline }}</p>
+                                </div>
+                                <div class="details__content" style="font-size: 1rem; margin-top: 2rem">
+                                    <p>
+                                        {{ info.overview }}
+                                    </p>
+                                </div>
+            
+                                <div class="credits">
+                                    {% if cast %}
+                                    <div class="credit-list">
+                                        <div class="details__content-header">
+                                            <p>Cast</p>
+                                        </div>
+                                        {% for member in cast %}
+                                        <div class="details__content">
+                                            <p style="display:inline;">{{ member.name }}</p>
+                                            {% if member.character %}
+                                            <p style="display:inline; color: rgb(136, 2, 2); font-size: 1rem;">as {{ member.character }}</p>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %} {% if crew %}
+                                    <div class="credit-list">
+                                        <div class="details__content-header">
+                                            <p>Crew</p>
+                                        </div>
+                                        {% for member in crew %}
+                                        <div class="details__content">
+                                            <p style="display:inline;">{{ member.name }}</p>
+                                            {% if member.job %}
+                                            <p style="display:inline; color: rgb(139, 3, 3); font-size: 1rem;">, {{ member.job }}</p>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %} {% if trailers %}
+                                    <div class="content">
+                                        <div class="details__content-header">
+                                            <p>Alternaive Titles</p>
+                                        </div>
+                                        <div class="details__content" style="font-size: 1rem;">
+                                            {% if alt %}
+                                                {% for title in alt %}
+                                                    <p>{{ title.title }}</p>
+                                                {% endfor %}
+                                            {% else %}
+                                                <p>⸺</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+            
+                                    <div class="content">
+                                        <div class="details__content-header">
+                                            <p>Keywords</p>
+                                        </div>
+                                        <div class="details__content">
+                                            {% if keywords %} {% for keyword in keywords %}
+                                            <p style="font-size: 1rem;">{{ keyword.name }}</p>
+                                            {% endfor %} {% else %}
+                                            <p>⸺</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="content" style="">
+                                        {% if reviews %}
+                                            <div class="details__content-header">
+                                                <p>Reviews</p>
+                                            </div>
+                                            {% for review in reviews %}
+                                                <div class="details__content">
+                                                    <p>{{ review.author }}</p>
+                                                    <p style="font-size: 1rem;">{{ review.content }}</p>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                        <div class="details__content-header">
+                                            <p>Trailer</p>
+                                        </div>
+                                        {% for trailer in trailers %}
+                                        <div class="details__content" >
+                                            <div class="embed-responsive embed-responsive-4by3">
+                                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ trailer.key }}"></iframe>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    </body>
+</html>
